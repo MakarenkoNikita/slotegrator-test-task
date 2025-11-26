@@ -1,0 +1,7 @@
+#Application
+host: testslotegrator.com
+
+#API
+connectionSecondTimeout: 20
+readSecondTimeout: 20
+writeSecondTimeout: 20
