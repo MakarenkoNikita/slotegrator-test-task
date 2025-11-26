@@ -1,12 +1,13 @@
 package com.slotegrator.framework.api.interceptor;
 
+import java.util.ArrayList;
 import java.util.List;
 import okhttp3.Interceptor;
 
 @SuppressWarnings("unused")
 public class HttpClientInterceptorBuilder {
 
-  private List<Interceptor> interceptors;
+  private final List<Interceptor> interceptors = new ArrayList<>();
 
   public HttpClientInterceptorBuilder withDefaultInterceptors() {
     return this.addStatusCodeInterceptor()

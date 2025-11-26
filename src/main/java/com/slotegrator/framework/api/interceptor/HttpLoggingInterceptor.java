@@ -1,11 +1,12 @@
 package com.slotegrator.framework.api.interceptor;
 
+import static com.slotegrator.framework.execution.CustomLogger.getLogger;
 import static okhttp3.ResponseBody.create;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.slotegrator.framework.execution.CustomLogger;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -17,7 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class HttpLoggingInterceptor implements Interceptor {
 
-  private final Logger log = CustomLogger.getLogger();
+  private final Logger log = getLogger();
+  private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
   @NotNull
   @Override
@@ -32,12 +34,12 @@ public class HttpLoggingInterceptor implements Interceptor {
   }
 
   private void logRequestData(Request request) throws IOException {
-    log.info("%nREQUEST: [{}] {}", request.method(), request.url());
+    log.info("\nREQUEST: [{}] {}", request.method(), request.url());
     if (request.body() != null) {
       Buffer buffer = new Buffer();
       request.body().writeTo(buffer);
       String body = parseJson(buffer.readUtf8());
-      log.info("%Request body:\n [{}]", body);
+      log.info("\nRequest body:\n{}", body);
     }
   }
 
@@ -47,14 +49,14 @@ public class HttpLoggingInterceptor implements Interceptor {
         Response status code: {}
         """, response.request().method(), response.request().url(), response.code());
     if (response.body() != null) {
-      log.info("%Response body:\n [{}]", parseJson(responseBody));
+      log.info("\nResponse body:\n{}", parseJson(responseBody));
     }
   }
 
   private String parseJson(String jsonStringValue) {
     try {
       JsonElement jsonElement = JsonParser.parseString(jsonStringValue);
-      return new Gson().toJson(jsonElement);
+      return gson.toJson(jsonElement);
     } catch (Exception e) {
       log.warn("Couldn't parse response body as JSON");
       return null;

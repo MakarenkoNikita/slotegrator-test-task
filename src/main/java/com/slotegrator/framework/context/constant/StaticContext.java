@@ -1,8 +1,6 @@
-package com.slotegrator.framework.context;
+package com.slotegrator.framework.context.constant;
 
 import static com.slotegrator.framework.converter.FileConverter.resouceFileToObject;
-
-import com.slotegrator.application.entity.model.EnvironmentConfiguration;
 
 public class StaticContext {
 

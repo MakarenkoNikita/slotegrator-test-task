@@ -1,0 +1,15 @@
+Configuration:
+  status: info
+
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{yyyy:MM:dd HH:mm:ss.SSS}[%-5level]: %msg%n"
+
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: CONSOLE

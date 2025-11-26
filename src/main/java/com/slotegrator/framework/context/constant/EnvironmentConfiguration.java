@@ -1,4 +1,4 @@
-package com.slotegrator.application.entity.model;
+package com.slotegrator.framework.context.constant;
 
 @SuppressWarnings("unused")
 public class EnvironmentConfiguration {
@@ -7,9 +7,15 @@ public class EnvironmentConfiguration {
   private int connectionSecondTimeout;
   private int readSecondTimeout;
   private int writeSecondTimeout;
+  private String login;
+  private String password;
 
   public String getHost() {
     return this.host;
+  }
+
+  public String getBaseUrl() {
+    return "https://" + this.host;
   }
 
   public int getConnectionSecondTimeout() {
@@ -22,5 +28,13 @@ public class EnvironmentConfiguration {
 
   public int getWriteSecondTimeout() {
     return writeSecondTimeout;
+  }
+
+  public String getLogin() {
+    return this.login;
+  }
+
+  public String getPassword() {
+    return this.password;
   }
 }

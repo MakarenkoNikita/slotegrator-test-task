@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-  testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+  implementation "org.junit.jupiter:junit-jupiter:$junitJupiterVersion"
   implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
   implementation "com.squareup.retrofit2:converter-gson:$retrofitGsonVersion"
   implementation "org.apache.logging.log4j:log4j-core:$log4jVersion"

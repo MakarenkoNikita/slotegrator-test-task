@@ -1,6 +1,6 @@
 package com.slotegrator.framework.api.client;
 
-import static com.slotegrator.framework.context.StaticContext.environmentConfiguration;
+import static com.slotegrator.framework.context.constant.StaticContext.environmentConfiguration;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.slotegrator.framework.api.interceptor.HttpClientInterceptorBuilder;
