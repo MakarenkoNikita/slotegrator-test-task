@@ -2,13 +2,13 @@ package com.slotegrator.framework.context.dynamic;
 
 public class CookieSession {
 
-  private static String accessToken;
+  private String accessToken;
 
-  public static String getAccessToken() {
+  public String getAccessToken() {
     return accessToken;
   }
 
-  public static void setAccessToken(String token) {
-    accessToken = token;
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
   }
 }

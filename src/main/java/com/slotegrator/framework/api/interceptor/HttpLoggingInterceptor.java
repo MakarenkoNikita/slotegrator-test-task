@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.io.IOException;
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -34,23 +35,46 @@ public class HttpLoggingInterceptor implements Interceptor {
   }
 
   private void logRequestData(Request request) throws IOException {
-    log.info("\nREQUEST: [{}] {}", request.method(), request.url());
+
     if (request.body() != null) {
       Buffer buffer = new Buffer();
       request.body().writeTo(buffer);
       String body = parseJson(buffer.readUtf8());
-      log.info("\nRequest body:\n{}", body);
+      log.info("""
+          \nREQUEST: [{}] {}
+          Request headers: {}
+          Request body:
+          {}
+          """, request.method(), request.url(), getHeadersAsFormattedString(request.headers()), body
+      );
+      return;
     }
+    log.info("""
+        \nREQUEST: [{}] {}
+        Request headers: {}
+        """, request.method(), request.url(), getHeadersAsFormattedString(request.headers()));
   }
 
   private void logResponseData(Response response, String responseBody) {
     log.info("""
-        \nRESPONSE: [{}] {}
-        Response status code: {}
-        """, response.request().method(), response.request().url(), response.code());
+            \nRESPONSE: [{}] {}
+            Response headers: {}
+            Response status code: {}
+            """,
+        response.request().method(), response.request().url(),
+        getHeadersAsFormattedString(response.headers()), response.code()
+    );
     if (response.body() != null) {
       log.info("\nResponse body:\n{}", parseJson(responseBody));
     }
+  }
+
+  private String getHeadersAsFormattedString(Headers headers) {
+    StringBuilder stringBuilder = new StringBuilder();
+    headers.forEach(
+        header -> stringBuilder.append(header.getFirst()).append(": ").append(header.getSecond()).append("\n")
+    );
+    return stringBuilder.toString();
   }
 
   private String parseJson(String jsonStringValue) {
