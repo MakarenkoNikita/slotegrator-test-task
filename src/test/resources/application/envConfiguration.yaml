@@ -7,5 +7,5 @@ readSecondTimeout: 20
 writeSecondTimeout: 20
 
 #Role
-login: makarenkonv99@gmail.com
-password: JDQy3z32mJ19
+login: INSERT_LOGIN
+password: INSERT_PASSWORD
